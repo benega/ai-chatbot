@@ -1,0 +1,5 @@
+class_type,date,time,availability
+Yoga,2023-12-25,10:00,True
+Yoga,2023-12-26,10:00,True
+Boxing,2023-12-25,11:00,True
+Boxing,2023-12-26,11:00,True

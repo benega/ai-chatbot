@@ -1,0 +1,12 @@
+requests
+python-dotenv
+pandas
+google-auth
+google-api-python-client
+pytest-mock
+pytest-cov
+langchain
+openai
+langgraph
+tiktoken
+flask
