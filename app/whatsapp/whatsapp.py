@@ -12,19 +12,21 @@ from app.whatsapp.whatsapp_utils import (
 webhook_blueprint = Blueprint("webhook", __name__)
 
 
-def handle_message():
-    """
-    Handle incoming webhook events from the WhatsApp API.
+from typing import Tuple
 
-    This function processes incoming WhatsApp messages and other events,
-    such as delivery statuses. If the event is a valid message, it gets
-    processed. If the incoming payload is not a recognized WhatsApp event,
-    an error is returned.
+def handle_message() -> Tuple[jsonify, int]:
+    """Handle incoming webhook events from the WhatsApp API.
 
-    Every message send will trigger 4 HTTP requests to your webhook: message, sent, delivered, read.
+    Processes incoming WhatsApp messages and other events, such
+    as delivery statuses. If the event is a valid message, it
+    gets processed. If the incoming payload is not a recognized
+    WhatsApp event, an error is returned.
+
+    Every message send will trigger 4 HTTP requests to your
+    webhook: message, sent, delivered, read.
 
     Returns:
-        response: A tuple containing a JSON response and an HTTP status code.
+        A tuple containing a JSON response and an HTTP status code.
     """
     logging.info('handle_message called!')
     body = request.get_json()
@@ -57,7 +59,15 @@ def handle_message():
 
 
 # Required webhook verifictaion for WhatsApp
-def verify():
+def verify() -> Tuple[str, int]:
+    """Verify the webhook subscription for WhatsApp.
+
+    Parses params from the webhook verification request to
+    confirm the subscription.
+
+    Returns:
+        A tuple containing the challenge string and HTTP status code.
+    """
     # Parse params from the webhook verification request
     mode = request.args.get("hub.mode")
     token = request.args.get("hub.verify_token")

@@ -237,6 +237,23 @@ sequenceDiagram
 WhatsApp Webhook → Message Handler → AI Conversation Handler → Conversation Manager → Response Generation → Message Sending
 ```
 
+## Code Organization
+
+The project is organized by feature rather than technical layer to improve maintainability and cohesion. The directory structure follows feature boundaries.
+
+### Module Dependencies
+```mermaid
+graph TD
+    A[app/whatsapp] --> U[app/utils]
+    B[app/intent] --> U
+    C[app/conversation] --> A
+    C --> B
+    C --> D[app/schedule]
+    C --> E[app/calendar]
+    D --> U
+    E --> U
+```
+
 ### Using Context7 MCP for Documentation
 - When implementing new features or modifying existing ones, use the Context7 MCP server to fetch up-to-date documentation and code examples.
 - This ensures that the code is accurate and follows the latest best practices.
@@ -276,6 +293,26 @@ User Request → Conversation Manager → Schedule Manager → CSV Parser → Av
 ```
 User Confirmation → Conversation Manager → Calendar Integration → Google Calendar API → Confirmation Generation
 ```
+
+## Code Style and Patterns
+
+-   The project follows PEP 8 guidelines for code formatting.
+-   Uses 4 spaces for indentation (no tabs).
+-   Limits lines to 88 characters (Black default).
+-   Uses appropriate whitespace for readability.
+-   Uses `snake_case` for variables, functions, methods, modules.
+-   Uses `PascalCase` for classes.
+-   Uses `UPPER_SNAKE_CASE` for constants.
+-   Prefixes private attributes/methods with underscore: `_private_method()`.
+-   Uses descriptive names that indicate purpose or behavior.
+-   Groups imports in the following order: standard library, third-party library, local application imports.
+-   Sorts imports alphabetically within each group.
+-   Uses absolute imports for clarity.
+-   Uses docstrings for all public modules, functions, classes, and methods.
+-   Follows Google-style docstrings for consistency.
+-   Includes type hints using Python's type annotation system.
+-   Documents parameters, return values, and raised exceptions.
+-   Adds comments only when necessary to explain "why", not "what".
 
 ## Revision History
 - v1.0 (Initial version): Project initialization

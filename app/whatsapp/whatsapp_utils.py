@@ -8,36 +8,58 @@ import requests
 import re
 
 
-def log_http_response(response):
+from typing import Dict
+
+def log_http_response(response: requests.Response) -> None:
+    """Log the HTTP response details."""
     logging.info(f"Status: {response.status_code}")
     logging.info(f"Content-type: {response.headers.get('content-type')}")
     logging.info(f"Body: {response.text}")
 
 
-def get_text_message_input(recipient, text):
-    return json.dumps(
-        {
-            "messaging_product": "whatsapp",
-            "recipient_type": "individual",
-            "to": recipient,
-            "type": "text",
-            "text": {"preview_url": False, "body": text},
-        }
-    )
+def get_text_message_input(recipient: str, text: str) -> str:
+    """Create a JSON string for a text message input.
+
+    Args:
+        recipient: The recipient's phone number.
+        text: The message text.
+
+    Returns:
+        A JSON string representing the text message input.
+    """
+    message_input = {
+        "messaging_product": "whatsapp",
+        "recipient_type": "individual",
+        "to": recipient,
+        "type": "text",
+        "text": {"preview_url": False, "body": text},
+    }
+    return json.dumps(message_input)
 
 
-def generate_response(response):
-    # Return text in uppercase
+def generate_response(response: str) -> str:
+    """Return text in uppercase."""
     return response.upper()
 
 
-def send_message(data):
+def send_message(data: str) -> requests.Response:
+    """Send a message to WhatsApp.
+
+    Args:
+        data: The JSON string representing the message.
+
+    Returns:
+        The response from the WhatsApp API.
+    """
     headers = {
         "Content-type": "application/json",
         "Authorization": f"Bearer {current_app.config['ACCESS_TOKEN']}",
     }
 
-    url = f"https://graph.facebook.com/{current_app.config['VERSION']}/{current_app.config['PHONE_NUMBER_ID']}/messages"        
+    url = (
+        f"https://graph.facebook.com/{current_app.config['VERSION']}"
+        f"/{current_app.config['PHONE_NUMBER_ID']}/messages"
+    )
 
     print(f"send_message URL: {url}, data: {data}")
 
@@ -45,7 +67,8 @@ def send_message(data):
         response = requests.post(
             url, data=data, headers=headers, timeout=10
         )  # 10 seconds timeout as an example
-        response.raise_for_status()  # Raises an HTTPError if the HTTP request returned an unsuccessful status code
+        response.raise_for_status()  # Raises HTTPError for bad responses
+        return response
     except requests.Timeout:
         logging.error("Timeout occurred while sending message")
         return jsonify({"status": "error", "message": "Request timed out"}), 408
@@ -60,7 +83,17 @@ def send_message(data):
         return response
 
 
-def process_text_for_whatsapp(text):
+def process_text_for_whatsapp(text: str) -> str:
+    """Process text for WhatsApp formatting.
+
+    Removes brackets and applies WhatsApp-style formatting to the text.
+
+    Args:
+        text: The text to process.
+
+    Returns:
+        The processed text.
+    """
     # Remove brackets
     pattern = r"\【.*?\】"
     # Substitute the pattern with an empty string
@@ -78,7 +111,15 @@ def process_text_for_whatsapp(text):
     return whatsapp_style_text
 
 
-def process_whatsapp_message(body):    
+def process_whatsapp_message(body: Dict) -> None:
+    """Process incoming WhatsApp message.
+
+    Extracts relevant information from the message body and
+    sends a response.
+
+    Args:
+        body: The JSON body of the webhook event.
+    """
     wa_id = body["entry"][0]["changes"][0]["value"]["contacts"][0]["wa_id"]
     name = body["entry"][0]["changes"][0]["value"]["contacts"][0]["profile"]["name"]
 
@@ -99,9 +140,14 @@ def process_whatsapp_message(body):
     send_message(data)
 
 
-def is_valid_whatsapp_message(body):
-    """
-    Check if the incoming webhook event has a valid WhatsApp message structure.
+def is_valid_whatsapp_message(body: Dict) -> bool:
+    """Check if the incoming webhook event is a valid message.
+
+    Args:
+        body: The JSON body of the webhook event.
+
+    Returns:
+        True if the message is valid, False otherwise.
     """
     return (
         body.get("object")
