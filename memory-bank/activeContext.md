@@ -1,67 +1,26 @@
 # Active Context: WhatsApp Chatbot Assistant
 
 ## Current Work Focus
-The project is in the initial planning and structuring phase. We are currently focused on:
+The project is currently focused on:
 
-1. **Project Setup**: Establishing the basic project structure and development environment
-2. **Architecture Definition**: Finalizing the component architecture and interaction patterns
-3. **Core Component Design**: Designing the key components that will form the foundation of the system
-4. **Integration Research**: Researching WhatsApp Cloud API and Google Calendar API integration approaches
+1.  **WhatsApp Integration**: Implementing basic WhatsApp message receiving and sending functionality.
+2.  **Project Setup**: Establishing the basic project structure and development environment.
 
 ## Recent Changes
-As this is the project initialization phase, there are no recent changes to existing code. The memory bank is being established to document the project's foundation.
+1.  **WhatsApp Integration**: The original WhatsApp integration code was replaced with code from another project. This involved modifying `app/whatsapp/whatsapp.py` and `app/whatsapp/whatsapp_utils.py`. The AI agent calling functionality was removed for initial testing.
+2.  **Main File Replacement**: `main.py` was removed and replaced with `run.py`.
 
 ## Next Steps
 
 ### Immediate Tasks
-1. **Set up basic project structure**
-   - Create directory structure following feature-based organization
-   - Initialize git repository
-   - Set up virtual environment
-   - Create initial README.md
-
-   When implementing the above tasks, use the Context7 MCP server to fetch up-to-date documentation and code examples.
-
-2. **Implement WhatsApp message receiving functionality**
-   - Set up webhook endpoint
-   - Implement verification challenge response
-   - Create message parsing logic
-   - Establish basic response mechanism
-
-3. **Build class schedule parser**
-   - Define CSV format for schedule data
-   - Implement parser with pandas
-   - Create availability checking logic
-   - Add caching mechanism for performance
-
-4. **Integrate AI for conversation handling**
-   - Use Langchain and OpenAI (GPT-4 or GPT-3.5-turbo) for natural language understanding
-   - Implement Langraph for managing multiple agents (Main Conversation Agent, Schedule Agent, Booking Agent, FAQ Agent, System Coordinator)
-   - The AI should access/manage the Google Calendar as a tool
+1.  **Further develop WhatsApp message handling**: Implement more robust message processing and error handling.
+2.  **Build class schedule parser**: Define CSV format for schedule data, implement parser with pandas, create availability checking logic, and add caching mechanism for performance.
+3.  **Integrate AI for conversation handling**: Use Langchain and OpenAI (GPT-4 or GPT-3.5-turbo) for natural language understanding, implement Langraph for managing multiple agents (Main Conversation Agent, Schedule Agent, Booking Agent, FAQ Agent, System Coordinator), and ensure the AI can access/manage the Google Calendar as a tool.
 
 ### Planned for Near Future
-1. **Google Calendar integration**
-   - Set up authentication
-   - Implement event creation
-   - Add invitation sending
-   - Create update/cancel functionality
-
-2. **AI Integration**
-   - Implement Langchain and OpenAI for conversation handling
-   - Design and implement Langraph agents
-   - Integrate AI with Google Calendar and CSV schedule data
-
-2. **Conversation state management**
-   - Design state machine for conversation flow
-   - Implement persistence for active conversations
-   - Create timeout and recovery mechanisms
-   - Add context tracking between messages
-
-3. **Testing infrastructure**
-   - Set up pytest framework
-   - Create mock objects for external dependencies
-   - Implement unit tests for core components
-   - Add integration tests for key flows
+1.  **Google Calendar integration**: Set up authentication, implement event creation, add invitation sending, and create update/cancel functionality.
+2.  **Conversation state management**: Design state machine for conversation flow, implement persistence for active conversations, create timeout and recovery mechanisms, and add context tracking between messages.
+3.  **Testing infrastructure**: Set up pytest framework, create mock objects for external dependencies, implement unit tests for core components, and add integration tests for key flows.
 
 ## Active Decisions and Considerations
 
@@ -124,7 +83,7 @@ As this is the project initialization phase, there are no recent changes to exis
 ## AI Integration Implementation Steps
 
 1. **Set up the AI environment:**
-   - Create the `src/ai/` directory and its subdirectories (agents, tools, memory, prompts, models, conversation).
+   - Create the `app/ai/` directory and its subdirectories (agents, tools, memory, prompts, models, conversation).
    - **User Feedback**: After this step, the user should verify that the directories have been created correctly.
 
 2. **Install dependencies:**
@@ -160,7 +119,7 @@ As this is the project initialization phase, there are no recent changes to exis
 ## AI Integration Next Steps
 
 1. **Set up the AI environment:**
-   - Create the `src/ai/` directory and its subdirectories (agents, tools, memory, prompts, models, conversation).
+   - Create the `app/ai/` directory and its subdirectories (agents, tools, memory, prompts, models, conversation).
 
 2. **Install dependencies:**
    - Add the necessary Langchain, OpenAI, and Langraph dependencies to `requirements.txt`.

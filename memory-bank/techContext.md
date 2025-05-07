@@ -103,7 +103,7 @@ DEBUG_MODE=False
 ### Directory Structure
 ```
 whatsapp-gym-bot/
-├── src/
+├── app/
 │   ├── whatsapp/           # WhatsApp integration
 │   ├── intent/             # Intent recognition
 │   ├── conversation/       # Conversation management
@@ -120,12 +120,12 @@ whatsapp-gym-bot/
 ### Module Dependencies
 ```mermaid
 graph TD
-    A[src/whatsapp] --> U[src/utils]
-    B[src/intent] --> U
-    C[src/conversation] --> A
+    A[app/whatsapp] --> U[app/utils]
+    B[app/intent] --> U
+    C[app/conversation] --> A
     C --> B
-    C --> D[src/schedule]
-    C --> E[src/calendar]
+    C --> D[app/schedule]
+    C --> E[app/calendar]
     D --> U
     E --> U
 ```
@@ -161,7 +161,7 @@ Add the following to the directory structure:
 
 ```
 whatsapp-gym-bot/
-├── src/
+├── app/
 │   ├── ai/
 │   │   ├── agents/
 │   │   ├── tools/

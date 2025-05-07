@@ -3,8 +3,8 @@ import json
 
 from flask import Blueprint, request, jsonify, current_app
 
-from ..decorators.security import signature_required
-from .whatsapp_utils import (
+from app.decorators.security import signature_required
+from app.whatsapp.whatsapp_utils import (
     process_whatsapp_message,
     is_valid_whatsapp_message,
 )
@@ -87,5 +87,3 @@ def webhook_get():
 @signature_required
 def webhook_post():
     return handle_message()
-
-

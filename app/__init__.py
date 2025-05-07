@@ -1,5 +1,5 @@
 from flask import Flask
-from src.config import load_configurations, configure_logging
+from app.config import load_configurations, configure_logging
 from .whatsapp.whatsapp import webhook_blueprint
 
 

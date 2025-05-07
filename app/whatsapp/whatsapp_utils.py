@@ -1,6 +1,7 @@
-import logging
-from flask import current_app, jsonify
 import json
+import logging
+
+from flask import current_app, jsonify
 import requests
 
 # from app.services.openai_service import generate_response
